@@ -1,0 +1,43 @@
+spring:
+  cache:
+    type: redis
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
+    password: redis
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+    show-sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+  application:
+    name: account-service
+#  cloud:
+#    consul:
+#      discovery:
+#        healthCheckPath: /actuator/health
+#        instanceId: ${spring.application.name:${random.value}}
+#        service-name: account-service
+#      config:
+#        watch:
+#          enabled: false
+
+server:
+  port: 8081
+  error:
+    include-message: always

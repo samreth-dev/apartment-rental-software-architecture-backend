@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: payment-service
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    consumer:
+      group-id: group-1
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+server:
+  port: 8085
+  error:
+    include-message: always
+
+account-service:
+  ribbon:
+    listOfServers: ${ACCOUNT_SERVICE:http://localhost:8081}
+credit-service:
+  ribbon:
+    listOfServers: ${CREDIT_SERVICE:http://localhost:8086}
+bank-service:
+  ribbon:
+    listOfServers: ${BANK_SERVICE:http://localhost:8087}
+paypal-service:
+  ribbon:
+    listOfServers: ${PAYPAL_SERVICE:http://localhost:8088}
